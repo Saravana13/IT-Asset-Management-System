@@ -1,5 +1,7 @@
 package com.example.it_asset_management_system.entity;
 
+import java.util.List;
+
 public class User {
 
     private Long id;
