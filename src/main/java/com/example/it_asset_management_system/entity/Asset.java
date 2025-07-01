@@ -3,6 +3,7 @@ package com.example.it_asset_management_system.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,5 +25,6 @@ public class Asset extends BaseModel{
     @Enumerated(EnumType.STRING)
     private AssetStatus status;
 
+    @OneToMany
     private List<AssetAssignment> assignments;
 }

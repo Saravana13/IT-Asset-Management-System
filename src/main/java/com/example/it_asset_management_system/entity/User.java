@@ -1,13 +1,12 @@
 package com.example.it_asset_management_system.entity;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 
 import java.util.List;
+@Entity
+@Table(name = "users")
+public class User extends BaseModel{
 
-public class User {
-
-    private Long id;
     private String username;
     private String email;
     private String password;
@@ -15,5 +14,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany
     private List<AssetAssignment> assignments;
 }
