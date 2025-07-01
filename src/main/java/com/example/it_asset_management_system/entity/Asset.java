@@ -1,15 +1,18 @@
 package com.example.it_asset_management_system.entity;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class Asset {
+@Entity
+public class Asset extends BaseModel{
 
-    private Long id;
+    @Enumerated(EnumType.STRING)
     private AssetType assetType;
+
     private String assetName;
     private String serialNumber;
     private String manufacturer;

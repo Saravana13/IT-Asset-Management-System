@@ -1,16 +1,20 @@
 package com.example.it_asset_management_system.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+
 import java.time.LocalDateTime;
 
-public class AuditLog {
+@Entity
+public class AuditLog extends BaseModel{
 
-    private Long id;
-
+    @Enumerated(EnumType.STRING)
     private Action action;
+
     private String entityAffected;
     private String performedBy;
     private LocalDateTime timestamp;
     private String details;
-
 
 }

@@ -1,10 +1,10 @@
 package com.example.it_asset_management_system.entity;
+import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
 
-public class AssetAssignment {
-
-    private long id;
+@Entity
+public class AssetAssignment extends BaseModel{
 
     private User assignedTo;
 
