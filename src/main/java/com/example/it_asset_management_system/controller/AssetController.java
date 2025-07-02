@@ -13,23 +13,35 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/assets")
 public class AssetController {
-    @Autowired
-    private AssetService assetService;
 
+    private final AssetService assetService;
+
+    @Autowired
     AssetController(AssetService assetService) {
         this.assetService = assetService;
     }
 
+    //Get all assets
     @GetMapping
     public ResponseEntity<List<Asset>> getAllAssets() {
         List<Asset> assets = assetService.getAllAssets();
-        return ResponseEntity.of(Optional.ofNullable(assets));
+        if(assets.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(assets);
     }
 
-    public Asset getAssetById(int id) {
-        return assetService.getAssetById(id);
+    //Get Asset By id
+    @GetMapping("/{id}")
+    public ResponseEntity<Asset> getAssetById(@PathVariable int id) {
+        Asset asset=assetService.getAssetById(id);
+        if(asset==null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(asset);
     }
 
+    //Adding new Asset
     @PostMapping
     public ResponseEntity<Asset> addAsset(@RequestBody Asset asset) {
         System.out.println("Adding asset");
@@ -43,14 +55,34 @@ public class AssetController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAsset);
     }
 
-    @DeleteMapping
-    public void deleteAssetById(int id) {
-        assetService.deleteAsset(id);
+    //Delete Asset By id
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAssetById(@PathVariable int id) {
+        boolean deleted=assetService.deleteAsset(id);
+        if(deleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
+    //Update Asset
     @PutMapping
-    public void updateAssetById(Asset asset) {
-        assetService.updateAsset(asset);
+    public ResponseEntity<Asset> updateAssetById(@RequestBody Asset asset) {
+        Asset updatedAsset=assetService.updateAsset(
+                asset.getId(),
+                asset.getAssetName(),
+                asset.getSerialNumber(),
+                asset.getManufacturer(),
+                asset.getModel(),
+                asset.getAssetType().toString(),
+                asset.getPurchaseDate(),
+                asset.getWarrantyExpireDate(),
+                asset.getStatus().toString()
+        );
+        if(updatedAsset==null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedAsset);
     }
 
 }

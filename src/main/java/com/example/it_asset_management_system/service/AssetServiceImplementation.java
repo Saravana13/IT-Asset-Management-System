@@ -20,7 +20,6 @@ public class AssetServiceImplementation implements AssetService {
 
     @Override
     public List<Asset> getAllAssets() {
-
         return assetRepository.findAll();
     }
 
@@ -49,14 +48,47 @@ public class AssetServiceImplementation implements AssetService {
         return asset;
     }
 
-
     @Override
-    public Asset updateAsset(Asset asset) {
-        return assetRepository.save(asset);
+    public Asset updateAsset(int id, String assetName, String serialNumber,
+                             String manufacturer, String model, String assetType,
+                             LocalDate purchaseDate, LocalDate warrantyExpireDate, String status) {
+      Asset asset = assetRepository.findById(id).orElse(null);
+      if(asset==null) {
+          return null;
+      }
+      if(assetName!=null) {
+          asset.setAssetName(assetName);
+      }
+      if(serialNumber!=null) {
+          asset.setSerialNumber(serialNumber);
+      }
+      if(manufacturer!=null) {
+          asset.setManufacturer(manufacturer);
+      }
+      if(model!=null) {
+          asset.setModel(model);
+      }
+      if(assetType!=null) {
+          asset.setAssetType(AssetType.valueOf(assetType));
+      }
+      if(purchaseDate!=null) {
+          asset.setPurchaseDate(purchaseDate);
+      }
+      if(warrantyExpireDate!=null) {
+          asset.setWarrantyExpireDate(warrantyExpireDate);
+      }
+      if(status!=null) {
+          asset.setStatus(AssetStatus.valueOf(status));
+      }
+      return assetRepository.save(asset);
     }
 
     @Override
-    public void deleteAsset(int id) {
-        assetRepository.deleteById(id);
+    public boolean deleteAsset(int id) {
+        if(assetRepository.existsById(id)) {
+            assetRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
