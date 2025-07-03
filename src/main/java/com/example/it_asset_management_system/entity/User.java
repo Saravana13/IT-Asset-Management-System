@@ -17,6 +17,6 @@ public class User extends BaseModel{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AssetAssignment> assignments;
 }

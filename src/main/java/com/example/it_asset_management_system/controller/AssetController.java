@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/assets")
 public class AssetController {
@@ -66,8 +66,8 @@ public class AssetController {
     }
 
     //Update Asset
-    @PutMapping
-    public ResponseEntity<Asset> updateAssetById(@RequestBody Asset asset) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Asset> updateAssetById(@PathVariable int id ,@RequestBody Asset asset) {
         Asset updatedAsset=assetService.updateAsset(
                 asset.getId(),
                 asset.getAssetName(),

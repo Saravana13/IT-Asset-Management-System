@@ -11,10 +11,10 @@ import java.time.LocalDate;
 public class AssetAssignment extends BaseModel{
 
     @ManyToOne
-    private User assignedTo;
+    private Asset asset;
 
     @ManyToOne
-    private Asset asset;
+    private User user;
 
     private LocalDate assignedDate;
     private LocalDate expectedReturnDate;
