@@ -69,7 +69,7 @@ public class AssetController {
     @PutMapping("/{id}")
     public ResponseEntity<Asset> updateAssetById(@PathVariable int id ,@RequestBody Asset asset) {
         Asset updatedAsset=assetService.updateAsset(
-                asset.getId(),
+                id,
                 asset.getAssetName(),
                 asset.getSerialNumber(),
                 asset.getManufacturer(),
