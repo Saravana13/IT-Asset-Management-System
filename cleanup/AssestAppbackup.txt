@@ -1,0 +1,23 @@
+import React, { useState } from 'react';
+import AssetList from './components/AssetList';
+import AssetForm from './components/AssetForm';
+
+function App() {
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [assetToEdit, setAssetToEdit] = useState(null);
+
+  const reloadAssets = () => {
+    setRefreshKey(oldKey => oldKey + 1);
+    setAssetToEdit(null); // reset form
+  };
+
+  return (
+    <div className="App">
+      <h1>IT Asset Management System</h1>
+      <AssetForm onAssetSaved={reloadAssets} assetToEdit={assetToEdit} />
+      <AssetList key={refreshKey} onEdit={setAssetToEdit} />
+    </div>
+  );
+}
+
+export default App;
