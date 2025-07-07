@@ -1,10 +1,6 @@
 package com.example.it_asset_management_system.service;
 
 import com.example.it_asset_management_system.entity.Asset;
-import com.example.it_asset_management_system.entity.AssetStatus;
-import com.example.it_asset_management_system.entity.AssetType;
-import com.example.it_asset_management_system.repository.AssetRepository;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;

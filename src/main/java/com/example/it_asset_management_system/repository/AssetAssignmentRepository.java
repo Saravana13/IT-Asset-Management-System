@@ -11,5 +11,4 @@ public interface AssetAssignmentRepository extends JpaRepository<AssetAssignment
 
     List<AssetAssignment> findByAssetId(int assetId);
     List<AssetAssignment> findByUserId(int userId);
-    List<AssetAssignment> findByAssetIdAndUserId(int assetId, int userId);
 }

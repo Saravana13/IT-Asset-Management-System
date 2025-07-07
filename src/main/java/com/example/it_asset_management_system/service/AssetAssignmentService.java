@@ -1,6 +1,5 @@
 package com.example.it_asset_management_system.service;
 
-import com.example.it_asset_management_system.entity.Asset;
 import com.example.it_asset_management_system.entity.AssetAssignment;
 import com.example.it_asset_management_system.exceptions.AssetNotFoundException;
 import com.example.it_asset_management_system.exceptions.UserNotFoundException;
