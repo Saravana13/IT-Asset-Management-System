@@ -2,6 +2,7 @@ package com.example.it_asset_management_system.service;
 
 import com.example.it_asset_management_system.entity.Asset;
 import com.example.it_asset_management_system.entity.AssetAssignment;
+import com.example.it_asset_management_system.entity.AssetStatus;
 import com.example.it_asset_management_system.entity.User;
 import com.example.it_asset_management_system.exceptions.AssetNotFoundException;
 import com.example.it_asset_management_system.exceptions.UserNotFoundException;
@@ -41,13 +42,20 @@ public class AssetAssignmentServiceImplementation implements AssetAssignmentServ
         if(asset.isEmpty()){
             throw new AssetNotFoundException("Asset not found in DB");
         }
-
+        if(asset.get().getStatus().equals(AssetStatus.ASSIGNED)){
+            throw new AssetNotFoundException("Asset already assigned");
+        }
+        if(asset.get().getStatus().equals(AssetStatus.RETIRED)){
+            throw new AssetNotFoundException("Asset already retired");
+        }
 
         AssetAssignment assetAssignment = new AssetAssignment();
         assetAssignment.setAsset(asset.get());
         assetAssignment.setUser(user.get());
         assetAssignment.setAssignedDate(assigned_date);
         assetAssignment.setExpectedReturnDate(excepted_return_date);
+        asset.get().setStatus(AssetStatus.ASSIGNED);
+        assetRepository.save(asset.get());
         return assetAssignmentRepository.save(assetAssignment);
     }
 
@@ -82,5 +90,11 @@ public class AssetAssignmentServiceImplementation implements AssetAssignmentServ
         }
         assetAssignment.get().setActualReturnDate(returned_date);
         assetAssignmentRepository.save(assetAssignment.get());
+        Optional<Asset> asset = assetRepository.findById(assetAssignment.get().getAsset().getId());
+        if(asset.isEmpty()){
+            return;
+        }
+        asset.get().setStatus(AssetStatus.AVAILABLE);
+        assetRepository.save(asset.get());
     }
 }
