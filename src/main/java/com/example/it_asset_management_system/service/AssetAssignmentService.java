@@ -13,6 +13,6 @@ public interface AssetAssignmentService {
     List<AssetAssignment> getAllAssetAssignments();
     List<AssetAssignment> getAllAssetAssignmentsByUser(int user_id) throws UserNotFoundException;
     List<AssetAssignment> getAllAssetAssignmentsByAsset(int asset_id) throws AssetNotFoundException;
-    void returnAsset(int asset_assignment_id, LocalDate returned_date) ;
+    AssetAssignment returnAsset(int asset_assignment_id, LocalDate returned_date) ;
 
 }

@@ -83,18 +83,20 @@ public class AssetAssignmentServiceImplementation implements AssetAssignmentServ
     }
 
     @Override
-    public void returnAsset(int asset_assignment_id, LocalDate returned_date) {
+    public AssetAssignment returnAsset(int asset_assignment_id, LocalDate returned_date) {
         Optional<AssetAssignment> assetAssignment = assetAssignmentRepository.findById(asset_assignment_id);
         if(assetAssignment.isEmpty()){
-            return;
+            return null;
         }
         assetAssignment.get().setActualReturnDate(returned_date);
         assetAssignmentRepository.save(assetAssignment.get());
         Optional<Asset> asset = assetRepository.findById(assetAssignment.get().getAsset().getId());
         if(asset.isEmpty()){
-            return;
+            return null;
         }
         asset.get().setStatus(AssetStatus.AVAILABLE);
         assetRepository.save(asset.get());
+
+        return assetAssignment.get();
     }
 }

@@ -1,7 +1,10 @@
 package com.example.it_asset_management_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,6 +28,4 @@ public class Asset extends BaseModel{
     @Enumerated(EnumType.STRING)
     private AssetStatus status;
 
-    @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AssetAssignment> assignments;
 }
