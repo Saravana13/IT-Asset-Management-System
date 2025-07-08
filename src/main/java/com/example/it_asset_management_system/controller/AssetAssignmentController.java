@@ -31,7 +31,8 @@ public class AssetAssignmentController {
             assignment = assetAssignmentService.assignAsset(assetAssignment.getUserId(),assetAssignment.getAssetId(),
                     assetAssignment.getAssignedDate(),assetAssignment.getExpectedReturnDate());
         } catch (UserNotFoundException|AssetNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(assignment);
     }
